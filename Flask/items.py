@@ -6,22 +6,22 @@ items = Blueprint('items', __name__)
 
 @items.route('/items', methods=['POST'])
 def item():
-    list = []
+    input_list = []
     for i in request.json:
-        list.append(i)
+        input_list.append(i)
 
-    data = make_data(list)
+    data = make_data(input_list)
     return jsonify(data)
 
 
-def make_data(list):
+def make_data(input_list):
     valid_list = []
-    for items in list:
-        if str(items).isdigit():
-            if items > 0:
-                valid_list.append(items)
+    for i in input_list:
+        if str(i).isdigit():
+            if i > 0:
+                valid_list.append(i)
 
-    x = len(list)
+    x = len(input_list)
     y = len(valid_list)
     z = sum(valid_list)/y
 
@@ -34,6 +34,7 @@ def make_data(list):
            }
 
     return data
+
 
 if __name__ == "__main__":
     items.run(host='127.0.0.1', port=8000)
