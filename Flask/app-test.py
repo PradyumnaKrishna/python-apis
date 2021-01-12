@@ -2,6 +2,7 @@ from app import app
 import unittest
 
 
+# Test all question with given request/response
 class TestingModule(unittest.TestCase):
 
     def setUp(self):
@@ -13,7 +14,7 @@ class TestingModule(unittest.TestCase):
 
         req = [1, 4, -1, "hello", "world", 0, 10, 7]
 
-        print('='*20)
+        print('=' * 20)
         print("Items Testing Module")
 
         print("\n\nThe request is POST to /items with json string >")
@@ -54,7 +55,7 @@ class TestingModule(unittest.TestCase):
         resp4 = [dict(name="Diana", slot=2)]
         resp5 = dict(status="no booking for the name John in slot 2")
 
-        print('='*20)
+        print('=' * 20)
         print("Booking Testing Module")
 
         print("Sending 1st POST request to /booking with json string >", req1)
@@ -101,10 +102,10 @@ class TestingModule(unittest.TestCase):
         resp1 = dict(status="accepted")
         resp2 = dict(status="Success (1, 1) (1, 5) (5, 1) (5, 5) ")
 
-        sess_data = [(1,1),(1,5),(5,1),(5,2),(5,5)]
-        rect_coord = [(1,1),(1,5),(5,1),(5,5)]
+        sess_data = [(1, 1), (1, 5), (5, 1), (5, 2), (5, 5)]
+        rect_coord = [(1, 1), (1, 5), (5, 1), (5, 5)]
 
-        print('='*20)
+        print('=' * 20)
         print("Plot Testing Module")
 
         with self.app as client:

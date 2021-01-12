@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from database import db, ma
 
-# Init app
+# Init Blueprint
 booking = Blueprint('booking', __name__)
 
 
@@ -16,7 +16,7 @@ class Booked(db.Model):
         self.name = name
 
 
-# Product Schema
+# Booking Schema
 class BookingSchema(ma.Schema):
     class Meta:
         fields = ('slot', 'name')
@@ -27,45 +27,66 @@ booking_schema = BookingSchema()
 bookings_schema = BookingSchema(many=True)
 
 
-# create a Product
+# create a Booking
 @booking.route('/booking', methods=['POST'])
 def add_booking():
-    slot = request.json['slot']
-    name = request.json['name']
+    """Add booking"""
+    # Error Handling if not supported POST
+    try:
+        slot = request.json['slot']
+        name = request.json['name']
+    except KeyError:
+        return jsonify(dict(status="invalid request"))
 
+    # Not more than 24 hours
     if slot > 23:
         return jsonify(dict(status="Invalid Slot"))
     else:
+        # Booked slot not more than 2
         if Booked.query.filter_by(slot=slot).count() < 2:
+            # Add Booking
             new_booking = Booked(slot, name)
 
             db.session.add(new_booking)
             db.session.commit()
 
+            # Return response
             return jsonify(dict(status="confirmed booking for " + name + " in slot " + str(slot)))
         else:
             return jsonify(dict(status="slot full, unable to save booking for " + name + " in slot " + str(slot)))
 
 
-# Get all Products
+# Get all Bookings
 @booking.route('/booking', methods=['GET'])
 def get_bookings():
+    """Get all bookings"""
+    # Get all Bookings
     all_products = Booked.query.all()
     result = bookings_schema.dump(all_products)
+
+    # Return response
     return jsonify(result)
 
 
-# Delete Product
+# Delete Booking
 @booking.route('/cancel', methods=['POST'])
 def delete_booking():
-    slot = request.json['slot']
-    name = request.json['name']
+    """Delete booking"""
+    # Error Handling if not supported POST
+    try:
+        slot = request.json['slot']
+        name = request.json['name']
+    except KeyError:
+        return jsonify(dict(status="invalid request"))
 
+    # Check if given slot and name exists
     exists = Booked.query.filter_by(slot=slot, name=name).scalar() is not None
     if exists:
+        # Delete such row
         Booked.query.filter_by(slot=slot, name=name).delete()
         db.session.commit()
 
+        # Return response
         return jsonify(dict(status="canceled booking for " + name + " in slot " + str(slot)))
 
     return jsonify(dict(status="no booking for the name " + name + " in slot " + str(slot)))

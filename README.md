@@ -13,3 +13,17 @@ understand and explain the code.
 - Bonus 1: Used coding best practices such as linting, naming conventions, documentation etc.
 - Bonus 2: Used a popular Python web framework
 - Bonus 3: Dockerized the setup and deploy on AWS Free Tier
+
+## Flask API
+Completed Task using Flask and going to complete it using Django soon,
+open `Flask` directory for it.
+
+To run, type:
+```sh
+python app.py
+```
+
+To run testing application, type:
+```sh
+python app-test.py
+```
