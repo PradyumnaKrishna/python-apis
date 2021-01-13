@@ -11,12 +11,11 @@ This Web Application Contains 5 Python files and 1 Database File.
 
 ## Deployed on Azure
 
-send request to <http://flask-apis.azurewebsites.net> because I have deployed this eb application on Azure.
+The api is working fine, send request to <http://flask-apis.azurewebsites.net> .
 
 ## Deployed on Heroku
 
-Database wasn't working on Azure, that's why I came to Heroku. The api is working fine, send requests
-to <http://myflask-api.herokuapp.com/> .
+The api is working fine, send requests to <http://myflask-api.herokuapp.com/> .
 
 ## Run Server
 
