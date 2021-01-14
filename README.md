@@ -15,8 +15,9 @@ understand and explain the code.
 - Bonus 3: Dockerized the setup and deploy on AWS Free Tier
 
 ## Flask API
-Completed Task using Flask and going to complete it using Django soon,
-open `Flask` directory for it.
+Completed Task using Flask, Code available in `Flask` directory for it.
+
+The api is working fine, send request to <http://flask-apis.azurewebsites.net> or <http://myflask-api.herokuapp.com/> .
 
 To run, type:
 ```sh
@@ -27,3 +28,21 @@ To run testing application, type:
 ```sh
 python app-test.py
 ```
+
+## Django API
+Completed Task using Django, Code available in `Django` directory for it.
+
+The api is working fine, send requests to <http://mydjango-api.herokuapp.com/> .
+
+To run, type:
+
+```sh
+python manage.py runserver
+```
+
+To test the application, type:
+
+```sh
+python manage.py test
+```
+*Only 1 test available yet
