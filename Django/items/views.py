@@ -9,8 +9,11 @@ class itemsView(APIView):
     def post(self, request, format=None):
         input_list=[]
         try:
-            for i in request.data:
-                input_list.append(i)
+            if isinstance(request.data, list):
+                for i in request.data:
+                    input_list.append(i)
+            else:
+                return Response({"status": "Invalid List"}, status=status.HTTP_400_BAD_REQUEST)
         except TypeError:
             return Response({"status": "Wrong Method"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -29,14 +32,21 @@ def make_data(input_list):
     # Data Required
     x = len(input_list)
     y = len(valid_list)
-    z = sum(valid_list)/y
+    if y == 0:
+        z = 0
+        min_value = 0
+        max_value = 0
+    else:
+        z = sum(valid_list)/y
+        min_value = min(valid_list)
+        max_value = max(valid_list)
 
     # Data required in a dictionary
     data = {
              "valid_entries": y,
              "invalid_entries": x-y,
-             "min": min(valid_list),
-             "max": max(valid_list),
+             "min": min_value,
+             "max": max_value,
              "average": z
            }
 
