@@ -6,5 +6,5 @@ class Booking(models.Model):
     slot = models.IntegerField(null=False, blank=False)
     name = models.CharField(max_length=50, null=False)
 
-    def __str__(self_):
-        return self.slot
+    def __str__(self):
+        return self.name

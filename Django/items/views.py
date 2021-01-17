@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,36 +7,35 @@ from rest_framework import status
 class itemsView(APIView):
 
     def post(self, request, format=None):
-        input_list = []
+        """Handles POST Request"""
+
+        # Validates the Data
         try:
             if isinstance(request.data, list):
-                for i in request.data:
-                    input_list.append(i)
+                input_list = [i for i in request.data]
             else:
                 return Response({"status": "Invalid List"}, status=status.HTTP_400_BAD_REQUEST)
+
         except TypeError:
             return Response({"status": "Wrong Method"}, status=status.HTTP_400_BAD_REQUEST)
 
+        # Process Data
         data = make_data(input_list)
         return Response(data, status=status.HTTP_200_OK)
 
 
 def make_data(input_list):
-    """To make data sense"""
-    valid_list = []
+    """Process Data"""
+
     # if variable is positive digit then append to a list
-    for i in input_list:
-        if str(i).isdigit():
-            if i > 0:
-                valid_list.append(i)
+    valid_list = [i for i in input_list if str(i).isdigit() and i > 0]
 
     # Data Required
     x = len(input_list)
     y = len(valid_list)
+
     if y == 0:
-        z = 0
-        min_value = 0
-        max_value = 0
+        z = min_value = max_value = 0
     else:
         z = sum(valid_list) / y
         min_value = min(valid_list)
